@@ -149,6 +149,7 @@ void halSetSleepMode(void);
 #define HAL_SLEEP_TIMER_ENABLE_INT()        st(IEN0 |= STIE_BV;)     /* enable sleep timer interrupt */
 #define HAL_SLEEP_TIMER_DISABLE_INT()       st(IEN0 &= ~STIE_BV;)    /* disable sleep timer interrupt */
 #define HAL_SLEEP_TIMER_CLEAR_INT()         st(STIF = 0;)            /* clear sleep interrupt flag */
+// STIF deternmina que a INT veio do SLEEP e não do pulso 
 
 /* backup interrupt enable registers before sleep */
 #define HAL_SLEEP_IE_BACKUP_AND_DISABLE(ien0, ien1, ien2) st(ien0  = IEN0;    /* backup IEN0 register */ \
@@ -157,6 +158,8 @@ void halSetSleepMode(void);
                                                              IEN0 &= STIE_BV; /* disable IEN0 except STIE */ \
                                                              IEN1 &= P0IE_BV; /* disable IEN1 except P0IE */ \
                                                              IEN2 &= (P1IE_BV|P2IE_BV);) /* disable IEN2 except P1IE, P2IE */
+
+// Lembrar de deixar somente as interrupções necessarias ativadas pra evitar que ele saia do sleep atoa
 
 /* restore interrupt enable registers before sleep */
 #define HAL_SLEEP_IE_RESTORE(ien0, ien1, ien2) st(IEN0 = ien0;   /* restore IEN0 register */ \
@@ -543,13 +546,15 @@ void halRestoreSleepLevel( void )
 HAL_ISR_FUNCTION(halSleepTimerIsr, ST_VECTOR)
 {
   HAL_ENTER_ISR();
-  HAL_SLEEP_TIMER_CLEAR_INT();
+  HAL_SLEEP_TIMER_CLEAR_INT(); // limpa o STIF -> Flag de sleeptimer
+  // Tirar essa parte ou colocar uma FLAG pra dizer que veio do SLEEP
+  
 
 #ifdef HAL_SLEEP_DEBUG_POWER_MODE
   halSleepInt = TRUE;
 #endif
   
-  CLEAR_SLEEP_MODE();
+  CLEAR_SLEEP_MODE(); // 
   HAL_EXIT_ISR();
 }
 
