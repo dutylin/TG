@@ -236,7 +236,7 @@ uint16 Hal_ProcessEvent( uint8 task_id, uint16 events )
     return events ^ HAL_KEY_EVENT;
   }
 
-#ifdef POWER_SAVING
+#ifdef POWER_SAVING  // Saida da rotina de sleep 
   if ( events & HAL_SLEEP_TIMER_EVENT )
   {
     halRestoreSleepLevel();

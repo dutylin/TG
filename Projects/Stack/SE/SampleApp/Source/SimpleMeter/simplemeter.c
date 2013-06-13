@@ -485,6 +485,7 @@ void simplemeter_Init( uint8 task_id )
 
     // Set up additional attributes
   }
+  ZDOInitDevice(0);  // Join the network.
 }
 
 /*********************************************************************
@@ -753,15 +754,19 @@ static void simplemeter_HandleKeys( uint8 shift, uint8 keys )
   {
     if ( keys & HAL_KEY_SW_1 )
     {
+      asm("NOP");
     }
     if ( keys & HAL_KEY_SW_2 )
     {
+      asm("NOP");
     }
     if ( keys & HAL_KEY_SW_3 )
     {
+      asm("NOP");
     }
-    if ( keys & HAL_KEY_SW_4 )
+    if ( keys & HAL_KEY_SW_6 )
     {
+      asm("NOP");
     }
   }
   else
@@ -782,9 +787,9 @@ static void simplemeter_HandleKeys( uint8 shift, uint8 keys )
 
     }
 
-    if ( keys & HAL_KEY_SW_4 )
+    if ( keys & HAL_KEY_SW_6 )
     {
-
+    ZDOInitDevice(0);  // Join the network.
     }
   }
 }

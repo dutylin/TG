@@ -115,7 +115,7 @@
 
 /* edge interrupt */
 #define HAL_KEY_SW_6_EDGEBIT  BV(0)
-#define HAL_KEY_SW_6_EDGE     HAL_KEY_FALLING_EDGE
+#define HAL_KEY_SW_6_EDGE     HAL_KEY_FALLING_EDGE   // borda de descida 
 
 
 /* SW_6 interrupts */
