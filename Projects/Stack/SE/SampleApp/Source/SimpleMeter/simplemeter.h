@@ -60,8 +60,8 @@ extern "C"
 #define SIMPLEMETER_MAX_OPTIONS              2
 
 #define SIMPLEMETER_UPDATE_TIME_PERIOD       1000   // Update time event in seconds
-#define SIMPLEMETER_REPORT_PERIOD            5000   // reporting interval
-#define SE_DEVICE_POLL_RATE                  8000   // Poll rate for SE end device
+#define SIMPLEMETER_REPORT_PERIOD            2000   // reporting interval
+#define SE_DEVICE_POLL_RATE                  1   // Poll rate for SE end device
 
 // Application Events
 #define SIMPLEMETER_IDENTIFY_TIMEOUT_EVT           0x0001

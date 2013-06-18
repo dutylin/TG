@@ -87,7 +87,10 @@
 #include "hal_drivers.h"
 #include "hal_adc.h"
 #include "hal_key.h"
+#include "hal_lcd.h"
+#include "hal_led.h" 
 #include "osal.h"
+#include "OSAL_PwrMgr.h"
 
 #if (defined HAL_KEY) && (HAL_KEY == TRUE)
 
@@ -144,7 +147,10 @@
 
 #define HAL_KEY_JOY_CHN   HAL_ADC_CHANNEL_6
 
-
+#define LINE1                           0x00
+#define LINE2                           0x01
+#define LINE3                           0x02
+#define LINE4                           0x03
 /**************************************************************************************************
  *                                            TYPEDEFS
  **************************************************************************************************/
@@ -157,6 +163,10 @@ static uint8 halKeySavedKeys;     /* used to store previous key state in polling
 static halKeyCBack_t pHalKeyProcessFunction;
 static uint8 HalKeyConfigured;
 bool Hal_KeyIntEnable;            /* interrupt enable/disable flag */
+
+
+volatile uint32 Pulses;
+const char titulo[]       = "Pulsos ";
 
 /**************************************************************************************************
  *                                        FUNCTIONS - Local
@@ -224,9 +234,10 @@ void HalKeyConfig (bool interruptEnable, halKeyCBack_t cback)
     /* Rising/Falling edge configuratinn */
 
     PICTL &= ~(HAL_KEY_SW_6_EDGEBIT);    /* Clear the edge bit */
+    PICTL |= HAL_KEY_SW_6_EDGEBIT; //setando falling edge
     /* For falling edge, the bit must be set. */
   #if (HAL_KEY_SW_6_EDGE == HAL_KEY_FALLING_EDGE)
-    PICTL |= HAL_KEY_SW_6_EDGEBIT;
+    //PICTL |= HAL_KEY_SW_6_EDGEBIT;
   #endif
 
 
@@ -339,7 +350,11 @@ void HalKeyPoll (void)
   }
   else
   {
-    /* Key interrupt handled here */
+  #if defined ( POWER_SAVING )
+      osal_pwrmgr_device( PWRMGR_BATTERY );
+  #endif  
+  Pulses++;
+  HalLcdWriteStringValue( (char*)titulo, Pulses, 10, 2 );
   }
 
   if (HAL_PUSH_BUTTON1())
@@ -487,7 +502,9 @@ HAL_ISR_FUNCTION( halKeyPort0Isr, P0INT_VECTOR )
 
   if (HAL_KEY_SW_6_PXIFG & HAL_KEY_SW_6_BIT)
   {
+    //Pulses++;
     halProcessKeyInterrupt();
+    
   }
 
   /*

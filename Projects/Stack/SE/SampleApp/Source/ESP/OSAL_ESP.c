@@ -43,6 +43,7 @@
 
 #include "ZComDef.h"
 #include "hal_drivers.h"
+#include "hal_led.h"
 #include "OSAL_Tasks.h"
 
 #if defined ( MT_TASK )
@@ -142,6 +143,7 @@ void osalInitTasks( void )
   zclGeneral_KeyEstablish_Init( taskID++ );
 #endif
   esp_Init( taskID );
+ 
 }
 
 /*********************************************************************

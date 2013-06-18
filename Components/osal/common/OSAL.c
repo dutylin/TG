@@ -51,6 +51,7 @@
 #include "OSAL_Memory.h"
 #include "OSAL_PwrMgr.h"
 #include "OSAL_Clock.h"
+#include "hal_led.h" 
 
 #include "OnBoard.h"
 
@@ -1076,6 +1077,7 @@ void osal_run_system( void )
 #if defined( POWER_SAVING )
   else  // Complete pass through all task events with no activity?
   {
+    HalLedSet ( HAL_LED_1, HAL_LED_MODE_ON );
     osal_pwrmgr_powerconserve();  // Put the processor/system into sleep
   }
 #endif

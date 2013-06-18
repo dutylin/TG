@@ -47,6 +47,7 @@
 #include "OSAL_Tasks.h"
 #include "OSAL_Timers.h"
 #include "OSAL_PwrMgr.h"
+#include "hal_lcd.h" 
 
 /*********************************************************************
  * MACROS
@@ -99,7 +100,7 @@ pwrmgr_attribute_t pwrmgr_attribute;
  */
 void osal_pwrmgr_init( void )
 {
-  pwrmgr_attribute.pwrmgr_device = PWRMGR_ALWAYS_ON; // Default to no power conservation.
+  pwrmgr_attribute.pwrmgr_device = PWRMGR_BATTERY; // Default to no power conservation.
   pwrmgr_attribute.pwrmgr_task_state = 0;            // Cleared.  All set to conserve
 }
 
@@ -169,11 +170,14 @@ void osal_pwrmgr_powerconserve( void )
 
   // Should we even look into power conservation
   if ( pwrmgr_attribute.pwrmgr_device != PWRMGR_ALWAYS_ON )
+  //if (1)
   {
     // Are all tasks in agreement to conserve
     if ( pwrmgr_attribute.pwrmgr_task_state == 0 )
     {
       // Hold off interrupts.
+      HAL_TURN_OFF_LED1();
+      //HalLcdWriteString( "Sleep", 1 );
       HAL_ENTER_CRITICAL_SECTION( intState );
 
       // Get next time-out
@@ -181,7 +185,7 @@ void osal_pwrmgr_powerconserve( void )
 
       // Re-enable interrupts.
       HAL_EXIT_CRITICAL_SECTION( intState );
-
+      
       // Put the processor into sleep mode
       OSAL_SET_CPU_INTO_SLEEP( next );
     }

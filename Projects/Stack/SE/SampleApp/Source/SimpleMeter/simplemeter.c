@@ -501,6 +501,7 @@ void simplemeter_Init( uint8 task_id )
 uint16 simplemeter_event_loop( uint8 task_id, uint16 events )
 {
   afIncomingMSGPacket_t *MSGpkt;
+  HAL_TURN_ON_LED1();
 
   if ( events & SYS_EVENT_MSG )
   {

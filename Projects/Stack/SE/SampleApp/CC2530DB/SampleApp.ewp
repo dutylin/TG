@@ -5692,7 +5692,7 @@
           <state>MT_TASK</state>
           <state>MT_APP_FUNC</state>
           <state>MT_SYS_FUNC</state>
-          <state>LCD_SUPPORTED</state>
+          <state>xLCD_SUPPORTED</state>
           <state>NV_INIT</state>
           <state>xNV_RESTORE</state>
           <state>HOLD_AUTO_START</state>

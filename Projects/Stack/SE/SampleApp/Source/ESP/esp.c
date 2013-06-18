@@ -612,7 +612,7 @@ void esp_Init( uint8 task_id )
 uint16 esp_event_loop( uint8 task_id, uint16 events )
 {
   afIncomingMSGPacket_t *MSGpkt;
-
+  
   if ( events & SYS_EVENT_MSG )
   {
     while ( (MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( espTaskID )) )

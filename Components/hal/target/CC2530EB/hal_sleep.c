@@ -1,3 +1,4 @@
+
 /**************************************************************************************************
   Filename:       hal_sleep.c
   Revised:        $Date: 2012-03-07 11:55:12 -0800 (Wed, 07 Mar 2012) $
@@ -548,8 +549,6 @@ HAL_ISR_FUNCTION(halSleepTimerIsr, ST_VECTOR)
   HAL_ENTER_ISR();
   HAL_SLEEP_TIMER_CLEAR_INT(); // limpa o STIF -> Flag de sleeptimer
   // Tirar essa parte ou colocar uma FLAG pra dizer que veio do SLEEP
-  
-
 #ifdef HAL_SLEEP_DEBUG_POWER_MODE
   halSleepInt = TRUE;
 #endif

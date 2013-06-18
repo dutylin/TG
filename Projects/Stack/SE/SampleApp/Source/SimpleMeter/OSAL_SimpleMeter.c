@@ -44,6 +44,7 @@
 #include "ZComDef.h"
 #include "hal_drivers.h"
 #include "OSAL_Tasks.h"
+#include "OSAL_PwrMgr.h"
 
 #if defined ( MT_TASK )
   #include "MT_TASK.h"

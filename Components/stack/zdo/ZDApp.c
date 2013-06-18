@@ -2359,9 +2359,9 @@ void ZDO_JoinConfirmCB( uint16 PanId, ZStatus_t Status )
   if ( Status == ZSUCCESS )
   {
     // LED on shows device joined
-    HalLedSet ( HAL_LED_3, HAL_LED_MODE_ON );
+    HalLedBlink(HAL_LED_1, 0, 1, 3000);
     // LED off forgets HOLD_AUTO_START
-    HalLedSet ( HAL_LED_4, HAL_LED_MODE_OFF);
+    HalLedSet ( HAL_LED_1, HAL_LED_MODE_OFF);
     if ( (devState == DEV_HOLD) )
     {
       // Began with HOLD_AUTO_START
